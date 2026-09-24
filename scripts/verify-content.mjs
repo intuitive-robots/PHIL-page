@@ -73,7 +73,6 @@ renderedRows.forEach((row, i) => {
 });
 assert.equal(document.querySelectorAll("h1").length, 1);
 assert.equal(document.documentElement.lang, "en");
-assert.equal(document.querySelectorAll(".authors").length, 0);
 assert(
   !/Academic Project Page Template|Author Two|Conference Name|Coming soon|Anonymous Author/.test(
     text,

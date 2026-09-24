@@ -287,10 +287,31 @@ svg {
 }
 .authors {
   display: flex;
-  gap: 22px;
+  gap: 8px 24px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 24px;
+  max-width: 960px;
+  margin: 28px auto 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #334155;
+}
+.authors > div {
+  white-space: nowrap;
+}
+.author-note {
+  margin-left: 2px;
+  font-size: 0.7em;
+}
+.author-affiliation {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted-ink);
+}
+.author-explanation {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted-ink);
 }
 .authors small {
   display: block;
@@ -1200,5 +1221,16 @@ abbr[title] {
   .metric-scope {
     font-size: 11px;
     margin-top: 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .authors {
+    gap: 8px 18px;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .author-affiliation {
+    font-size: 12px;
   }
 }

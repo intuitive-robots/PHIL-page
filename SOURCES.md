@@ -4,6 +4,7 @@ All source files were read without changing the manuscript project. The paths be
 
 | Website asset                       | Manuscript source                                                                          |
 | ----------------------------------- | ------------------------------------------------------------------------------------------ |
+| Authors and shared affiliation      | Supplied by the project team separately from the anonymized manuscript                     |
 | Title                               | `root.tex`                                                                                 |
 | Abstract and summary                | `tex_files/abstract.tex`                                                                   |
 | Method and correction-pair details  | `tex_files/method.tex`                                                                     |
@@ -25,3 +26,16 @@ The original manuscript acknowledges the use of ChatGPT to polish text and gener
 Copy updated table files verbatim from the manuscript, and update corresponding figure copies in the same change. Do not edit manuscript files through this website workflow. Verify the generated page before pushing.
 
 The original source-file checksum manifest is retained locally in `verification/source-checksums.json` and excluded from version control. It supports checking that the original inputs have not been altered; it is not uploaded to the website.
+
+## Author homepage links
+
+The author order, KIT affiliation, and corresponding-author designation were supplied by the project team. The homepage links were checked against the authors’ own pages or their KIT profiles:
+
+- [Xinkai Jiang](https://xinkai-jiang.github.io/)
+- [Hongyi Zhou](https://hongyizhoucn.github.io/)
+- [Pankhuri Vanjani](https://pankhurivanjani.github.io/)
+- [Ge Li](https://brucegeli.github.io/)
+- [Gerhard Neumann](https://alr.iar.kit.edu/21_65.php)
+- [Rudolf Lioutikov](https://rudolf.intuitive-robots.net/)
+
+Gerhard Neumann uses his official KIT profile. Rudolf Lioutikov’s personal homepage is also linked from his [KIT profile](https://www.irl.iar.kit.edu/team_58.php).
