@@ -1,0 +1,107 @@
+---
+title: "Correct Robots Before They Make Mistakes: Proactive Human-in-the-Loop Intervention via Preference Learning"
+titleLead: "Correct Robots Before They Make Mistakes"
+titleDetail: "Proactive Human-in-the-Loop Intervention via Preference Learning"
+tagline: "Preview a robot’s next move. Correct it before an error. Learn from the difference."
+authors: []
+links: []
+description: "PHIL combines XR trajectory previews, proactive human corrections, and preference learning to improve real-world robot manipulation with five correction episodes."
+favicon: favicon.svg
+thumbnail: media/social-preview.jpg
+theme: light
+---
+
+import ProjectHeader from "./components/ProjectHeader.astro";
+import Video from "./components/Video.astro";
+import ResearchFigure from "./components/ResearchFigure.astro";
+import HeadlineResults from "./components/HeadlineResults.astro";
+import XVLAResults from "./components/XVLAResults.astro";
+import overview from "./assets/phil/overview.png";
+import workspace from "./assets/phil/workspace.png";
+import diffusion from "./assets/phil/diffusion.png";
+import ablation from "./assets/phil/ablation.png";
+import recovery from "./assets/phil/recovery.png";
+import { asset } from "./lib/paths";
+
+<ProjectHeader {...frontmatter} />
+
+<section id="video" className="video-section section-shell" aria-labelledby="video-title">
+  <div className="section-kicker"><h2 id="video-title">PHIL in action</h2><span>Real-world robot learning · 1 min 50 sec</span></div>
+  <div className="video-frame">
+    <Video src={asset("media/phil-overview.mp4")} poster={asset("media/video-poster.jpg")} controls autoplay={false} loop={false} muted playsinline preload="none" aria-label="PHIL demonstration: proactive correction, preference pair collection, and robot task comparisons" />
+  </div>
+  <p className="video-caption">From anticipating errors in XR to learning from corrective actions. <span>The video contains on-screen explanations and no audio.</span></p>
+  <details className="video-description"><summary>Read the video overview</summary><p>The video contrasts reactive correction after an error with proactive correction using an XR preview. A human operator takes control of a Franka robot while predicted trajectories continue to update. Rejected predictions and executed corrective action chunks form preference pairs. Side-by-side selected rollouts then show Towel Folding, Cook the Carrot, and Lemon in the Drawer for HG-DAgger with reactive or proactive data and PHIL with proactive data. Playback speed labels are retained from the original video. These selected examples illustrate behavior; the results below summarize the quantitative evaluation.</p></details>
+</section>
+
+<HeadlineResults />
+
+<section id="abstract" className="section-shell section-divider text-section" aria-labelledby="abstract-title">
+  <div><p className="eyebrow">The idea</p><h2 id="abstract-title">A preview changes<br />{" "}when we intervene.</h2></div>
+  <div className="body-copy">
+    <p>Proactive Human-in-the-Loop (PHIL) is a framework for proactive policy correction and preference-based post-training. It lets an operator preview policy-predicted future motion in extended reality (XR) and intervene before an anticipated undesirable action.</p>
+    <p>During takeover, the policy continues predicting trajectories from the robot’s current state. PHIL pairs rejected predictions with the corrective action chunks subsequently executed from the same physical state over the same horizon. Preference-based post-training encourages the policy to favor these corrections.</p>
+    <p>Evaluated on real-world manipulation with a diffusion policy and a pretrained vision-language-action policy, PHIL improves mean success rates over HG-DAgger using five correction episodes per condition. A separate analysis finds fewer unnecessary recovery behaviors in successful episodes for policies trained with proactive corrections.</p>
+  </div>
+</section>
+
+<section id="method" className="section-shell section-divider" aria-labelledby="method-title">
+  <div className="section-heading"><p className="eyebrow">How PHIL works</p><h2 id="method-title">See ahead. Step in. Learn a preference.</h2><p>Turn human intervention into a comparison between what the policy proposed and what the robot should do.</p></div>
+  <ResearchFigure src={overview} full="figures/overview.png" label="PHIL framework overview" alt="PHIL pipeline: initialize a base policy from demonstrations, preview future actions in XR and collect rejected–corrected action pairs, then post-train with imitation and preference objectives.">
+    <strong>The PHIL framework.</strong> Base demonstrations initialize the policy. Proactive correction provides context-aligned preference pairs for post-training.
+  </ResearchFigure>
+  <ol className="method-steps">
+    <li><span className="step-number">01</span><h3>Preview</h3><p>Render predicted end-effector trajectories in the physical workspace, so the operator can inspect upcoming motion.</p></li>
+    <li><span className="step-number">02</span><h3>Correct</h3><p>Take control before an anticipated error. Policy queries and XR previews continue on the same fixed schedule.</p></li>
+    <li><span className="step-number">03</span><h3>Pair</h3><p>Match a rejected prediction with the next executed action chunk, starting at the same query state and spanning the same horizon.</p></li>
+    <li><span className="step-number">04</span><h3>Post-train</h3><p>Combine imitation on the original demonstrations with a preference objective that favors the corrective continuation.</p></li>
+  </ol>
+  <details className="method-detail"><summary>A closer look at preference pairs</summary><div className="body-copy"><p>The positive chunk contains the next <em>H</em> executed actions and may extend beyond the end of human takeover. The prediction accepted at release is excluded from negative samples. Only complete pairs are used for training.</p><p>In the experiments, actions run at 20 Hz with a 30-step prediction horizon and a query every 10 control steps. Both action chunks share the same context; the preference loss encourages a lower native imitation loss for the corrective chunk.</p></div></details>
+  <div className="workspace-block"><div><p className="eyebrow">In the workspace</p><h3>Human guidance,<br />{" "}in context.</h3><p>A Meta Quest 3 interface aligns the predicted trajectories with the real robot. Holding the controller trigger enables correction; releasing it returns control to the policy.</p></div><ResearchFigure src={workspace} full="figures/workspace.png" label="Proactive correction in the physical workspace" alt="Sequence of XR views showing trajectory inspection, human takeover, continued policy previews during correction, and return to policy control.">A proactive correction sequence with synchronized robot and trajectory visualization.</ResearchFigure></div>
+</section>
+
+<section id="results" className="results-section" aria-labelledby="results-title">
+  <div className="section-shell">
+    <div className="section-heading"><p className="eyebrow">Experiments &amp; results</p><h2 id="results-title">Four tasks. Two policy families.</h2><p>From single-stage manipulation to sequences that require several actions to succeed.</p></div>
+    <div className="tasks-grid">
+      <article className="task-card"><span className="task-index">TASK 01</span><h3>Pick Up Banana</h3><p>Pick up the banana.</p><span className="task-tag">Single stage</span></article>
+      <article className="task-card"><span className="task-index">TASK 02</span><h3>Towel Folding</h3><p>Fold the towel.</p><span className="task-tag">Single stage</span></article>
+      <article className="task-card"><span className="task-index">TASK 03</span><h3>Cook the Carrot</h3><p>Place the pot, add the carrot, and close the lid.</p><span className="task-tag">3 ordered stages</span></article>
+      <article className="task-card"><span className="task-index">TASK 04</span><h3>Lemon in the Drawer</h3><p>Open the drawer, place the lemon, and close it.</p><span className="task-tag">3 ordered stages</span></article>
+    </div>
+    <div className="protocol-note"><strong>A shared evaluation protocol.</strong> Each condition uses 25 evaluation rollouts. Diffusion Policy is evaluated on all four tasks; X-VLA on Towel Folding, Cook the Carrot, and Lemon in the Drawer. Base-demonstration budgets are 3/6/9 for Diffusion Policy on Pick Up Banana, and 10/20/30 elsewhere.</div>
+
+    <article className="result-block" aria-labelledby="diffusion-title">
+      <div className="result-heading"><span className="result-index">01 / DIFFUSION POLICY</span><h3 id="diffusion-title">Higher success across demonstration budgets.</h3><p>PHIL matches or exceeds the compared adaptation baselines across the evaluated tasks, budgets, and metrics. PHIL uses proactive corrections; HG-DAgger and Residual Policy use reactive corrections.</p></div>
+      <ResearchFigure src={diffusion} full="figures/diffusion.svg" label="Diffusion Policy main results" alt="Six-panel line plot comparing Base Policy, HG-DAgger, Residual Policy, and PHIL across demonstration budgets. PHIL matches or exceeds adaptation baselines for task success and long-horizon task completion.">
+        <strong>Diffusion Policy results.</strong> Left to right: success rate for Banana, Towel, Carrot, and Lemon; then task completion score for Carrot and Lemon. The zero-demonstration origins are visual guides, not measured conditions.
+      </ResearchFigure>
+      <p className="result-callout"><strong>Cook the Carrot · 10 demonstrations:</strong> PHIL reaches 52% success, compared with 24% for HG-DAgger and 4% for the base policy.</p>
+    </article>
+
+    <article className="result-block" aria-labelledby="xvla-title">
+      <div className="result-heading"><span className="result-index">02 / PRETRAINED VLA</span><h3 id="xvla-title">The same approach extends to X-VLA.</h3><p>PHIL matches or exceeds HG-DAgger across the evaluated X-VLA tasks, budgets, and metrics, reaching 100% full-task success on Lemon in the Drawer with 30 base demonstrations.</p></div>
+      <XVLAResults />
+    </article>
+
+    <article className="result-block" aria-labelledby="ablation-title">
+      <div className="result-heading"><span className="result-index">03 / CONTROLLED ABLATIONS</span><h3 id="ablation-title">Both collection and post-training matter.</h3><p>Proactive collection alone does not consistently improve success under behavior cloning. On the same proactive data, preference post-training matches or improves on HG-DAgger across all four tasks in the lowest-data regime.</p></div>
+      <ResearchFigure src={ablation} full="figures/ablation.svg" label="Reactive and proactive correction ablations" alt="Four-panel success-rate comparison of reactive, hybrid, and proactive correction data with HG-DAgger and PHIL. Outcomes depend on both the collection mode and the training objective.">
+        <strong>Separating the two contributions.</strong> Three base demonstrations for Banana and ten for each other task; five correction episodes per condition. Hybrid combines two proactive and three reactive episodes. Mixing improves HG-DAgger here but reduces PHIL performance, showing that the benefit depends on the objective.
+      </ResearchFigure>
+    </article>
+
+    <article className="result-block" aria-labelledby="recovery-title">
+      <div className="result-heading"><span className="result-index">04 / BEHAVIOR ANALYSIS</span><h3 id="recovery-title">Fewer unnecessary recovery actions.</h3><p>For both HG-DAgger and PHIL, proactive-trained Diffusion Policies show fewer unnecessary recovery behaviors in every evaluated task–demonstration setting.</p></div>
+      <ResearchFigure src={recovery} full="figures/recovery.svg" label="Unnecessary recovery behavior analysis" alt="Recovery counts for four manipulation tasks: proactive-trained policies exhibit fewer unnecessary recovery behaviors than reactive-trained policies across the evaluated conditions.">
+        <strong>A separate evaluation of successful behavior.</strong> Each point averages counts over ten successful episodes per condition. Necessary recovery after actual errors is excluded. The horizontal axis is the share of correction frames in the combined training data and decreases to the right.
+      </ResearchFigure>
+    </article>
+  </div>
+</section>
+
+<section id="takeaways" className="section-shell takeaways" aria-labelledby="takeaways-title">
+  <p className="eyebrow">Takeaways</p><h2 id="takeaways-title">Better corrections begin<br />{" "}before the mistake.</h2>
+  <div className="takeaway-grid"><div><span>01</span><h3>Make future motion visible.</h3><p>XR previews let people act on a policy’s proposed motion before it is executed.</p></div><div><span>02</span><h3>Learn from the contrast.</h3><p>Rejected predictions and executed corrections provide a context-aligned preference signal.</p></div><div><span>03</span><h3>Use a small correction budget.</h3><p>Five correction episodes improve mean success over HG-DAgger in the evaluated Diffusion Policy and X-VLA settings.</p></div></div>
+  <a className="text-link" href="#video">Watch PHIL in action <span aria-hidden="true">↑</span></a>
+</section>

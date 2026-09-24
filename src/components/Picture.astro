@@ -1,0 +1,19 @@
+---
+// Adapted from the upstream template's responsive Picture component.
+import { Picture as AstroPicture } from "astro:assets";
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  priority?: boolean;
+}
+const { src, alt, priority = false } = Astro.props;
+---
+
+<AstroPicture
+  src={src}
+  alt={alt}
+  layout="constrained"
+  formats={["avif"]}
+  priority={priority}
+  fit="contain"
+/>

@@ -1,0 +1,86 @@
+---
+import "../styles/global.css";
+import "../styles/phil.css";
+import { Content, frontmatter } from "../paper.mdx";
+import { asset } from "../lib/paths";
+const { title, description, favicon, thumbnail } = frontmatter;
+const canonical = new URL(asset(""), Astro.site).href;
+const socialImage = new URL(asset(thumbnail), Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={asset(favicon)} />
+    <meta property="og:title" content={`PHIL — ${title}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="PHIL: Correct Robots Before They Make Mistakes. Proactive human-in-the-loop intervention via preference learning."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`PHIL — ${title}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <title>PHIL — {title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-inner">
+        <a class="wordmark" href="#top" aria-label="PHIL home"
+          ><svg
+            width="27"
+            height="27"
+            viewBox="0 0 28 28"
+            fill="none"
+            aria-hidden="true"
+            ><path
+              d="M4 22V6h8a6 6 0 0 1 0 12H4"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"></path><path
+              d="m19 19 5-5-5-5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path></svg
+          >PHIL<span class="wordmark-divider"></span><span
+            class="nav-descriptor">Robot learning, with foresight.</span
+          ></a
+        ><div class="nav-links">
+          <a href="#video">Video</a><a href="#method">Method</a><a
+            href="#results">Results</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="main-content"><Content /></main>
+    <footer class="site-footer">
+      <div class="section-shell footer-inner">
+        <a class="wordmark" href="#top"
+          >PHIL <span class="footer-arrow" aria-hidden="true">↗</span></a
+        ><p>
+          Built with <a
+            href="https://github.com/RomanHauksson/academic-project-astro-template"
+            >Roman Hauksson’s academic project template</a
+          >, based on <a href="https://nerfies.github.io/">Nerfies</a>.<br
+          />Template adaptation under <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            >CC BY-SA 4.0</a
+          >.
+        </p><a class="back-top" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>

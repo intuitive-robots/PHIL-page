@@ -1,0 +1,41 @@
+\begin{table}[!t]
+    \centering
+    \caption{X-VLA results with different numbers of base demonstrations. HG-DAgger and PHIL use corrections collected over five interactive rollout episodes.}
+    \label{tab:xvla_comparison}
+    \setlength{\tabcolsep}{2.5pt}
+    \renewcommand{\arraystretch}{1.16}
+    \scriptsize
+    \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}ll*{6}{r}@{\hspace{3pt}}}
+        \toprule
+        \multirow{3}{*}{Task} & \multirow{3}{*}{Method}
+            & \multicolumn{6}{c}{Base demonstrations} \\
+        \cmidrule(l){3-8}
+            & & \multicolumn{2}{c}{10} & \multicolumn{2}{c}{20} & \multicolumn{2}{c}{30} \\
+        \cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(l){7-8}
+            & & SR & TCS & SR & TCS & SR & TCS \\
+        \midrule
+        \multirow{3}{*}{\shortstack[l]{Towel\\Folding}}
+            & Base Policy & 32 & -- & 36 & -- & 60 & -- \\
+            & HG-DAgger & 32 & -- & 40 & -- & 64 & -- \\
+            & \textbf{PHIL} & \textbf{64} & -- & \textbf{72} & -- & \textbf{72} & -- \\
+        \midrule
+        \multirow{3}{*}{\shortstack[l]{Cook the\\Carrot}}
+            & Base Policy & 40 & 73.3 & 56 & 77.3 & 56 & 85.3 \\
+            & HG-DAgger & \textbf{56} & 78.7 & 48 & 76.0 & \textbf{76} & 90.7 \\
+            & \textbf{PHIL} & \textbf{56} & \textbf{85.3} & \textbf{68} & \textbf{89.3} & \textbf{76} & \textbf{92.0} \\
+        \midrule
+        \multirow{3}{*}{\shortstack[l]{Lemon in\\the Drawer}}
+            & Base Policy & 0 & 37.3 & 4 & 46.7 & 0 & 53.3 \\
+            & HG-DAgger & 68 & 72.0 & 56 & 78.7 & 80 & 88.0 \\
+            & \textbf{PHIL} & \textbf{92} & \textbf{96.0} & \textbf{92} & \textbf{97.3} & \textbf{100} & \textbf{100.0} \\
+        \bottomrule
+    \end{tabular*}
+    \par\vspace{3pt}
+    \parbox{\columnwidth}{\scriptsize\raggedright
+        All values are percentages over 25 evaluation rollouts.
+        SR: full-task success rate; TCS: normalized task completion score.
+        --: TCS is not reported for Towel Folding.
+        Bold values indicate the best result within each task and demonstration budget, including ties.}
+    \PHILfigurebottomspace
+    % Author note retained from the original: plot or table?
+\end{table}

@@ -1,0 +1,38 @@
+---
+import Picture from "./Picture.astro";
+import Figure from "./Figure.astro";
+import { asset } from "../lib/paths";
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  full: string;
+  label: string;
+}
+const { src, alt, full, label } = Astro.props;
+---
+
+<div class="research-figure">
+  <Figure>
+    <a
+      slot="figure"
+      class="figure-link"
+      href={asset(full)}
+      target="_blank"
+      rel="noopener"
+      aria-label={`Open full-size figure: ${label} (new tab)`}
+    >
+      <Picture src={src} alt={alt} />
+    </a>
+    <div slot="caption" class="figure-caption">
+      <slot /><a
+        class="expand-link"
+        href={asset(full)}
+        target="_blank"
+        rel="noopener"
+        >View full size <span aria-hidden="true">↗</span><span class="sr-only">
+          (new tab)</span
+        ></a
+      >
+    </div>
+  </Figure>
+</div>

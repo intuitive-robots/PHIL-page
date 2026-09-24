@@ -1,0 +1,29 @@
+\begin{table}[!t]
+    \centering
+    \caption{Controlled diffusion-policy ablation in the lowest-data regime. Each comparison changes the correction-collection mode or the post-training objective while holding the remaining protocol fixed.}
+    \label{tab:controlled_ablation}
+    \setlength{\tabcolsep}{2.5pt}
+    \renewcommand{\arraystretch}{1.1}
+    \scriptsize
+    \resizebox{\columnwidth}{!}{%
+        \begin{tabular}{llcccc}
+            \toprule
+            Objective & Collection
+                & Banana
+                & Towel
+                & Carrot
+                & Lemon \\
+            \midrule
+            Base Policy & --- & 36\% & 24\% & 4\% & 0\% \\
+            HG-DAgger & Reactive & 56\% & 48\% & 24\% & 20\% \\
+            HG-DAgger & Proactive & 56\% & 40\% & 28\% & 36\% \\
+            PHIL & Reactive & 48\% & 36\% & 24\% & 16\% \\
+            PHIL & Proactive & 56\% & 68\% & 52\% & 40\% \\
+            HG-DAgger & Hybrid & 60\% & 52\% & 36\% & 60\% \\
+            PHIL & Hybrid & 16\% & 20\% & 0\% & 12\% \\
+            \bottomrule
+        \end{tabular}%
+    }
+    \vspace{2pt}
+    \parbox{\columnwidth}{\scriptsize All tasks report success rate (SR). All reported values are percentages.}
+\end{table}
