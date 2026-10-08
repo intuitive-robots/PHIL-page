@@ -15,6 +15,8 @@ export default defineConfig([
     ".vscode/**",
     "package-lock.json",
     "verification/**",
+    // Upstream Tailwind @apply syntax is validated by the production build.
+    "src/styles/global.css",
   ]),
   {
     files: ["**/*.{js,mjs,ts}"],

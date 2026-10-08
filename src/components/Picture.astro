@@ -1,15 +1,18 @@
 ---
-// Adapted from the upstream template's responsive Picture component.
 import { Picture as AstroPicture } from "astro:assets";
+
 interface Props {
   src: ImageMetadata;
   alt: string;
   priority?: boolean;
+  invertInDarkMode?: boolean;
 }
-const { src, alt, priority = false } = Astro.props;
+
+const { src, alt, priority = false, invertInDarkMode = false } = Astro.props;
 ---
 
 <AstroPicture
+  class={`rounded-lg max-h-[calc(100svh-3rem)] max-w-full w-min mx-auto ${invertInDarkMode ? "dark:invert" : ""}`}
   src={src}
   alt={alt}
   layout="constrained"

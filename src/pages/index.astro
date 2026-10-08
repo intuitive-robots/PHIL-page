@@ -1,86 +1,79 @@
 ---
+import { Font } from "astro:assets";
+
+import Table from "../components/Table.astro";
+
 import "../styles/global.css";
-import "../styles/phil.css";
+
 import { Content, frontmatter } from "../paper.mdx";
-import { asset } from "../lib/paths";
-const { title, description, favicon, thumbnail } = frontmatter;
-const canonical = new URL(asset(""), Astro.site).href;
-const socialImage = new URL(asset(thumbnail), Astro.site).href;
+
+interface Frontmatter {
+  title: string;
+  description?: string;
+  favicon: string;
+  thumbnail?: string;
+  theme?: "device" | "light" | "dark";
+}
+
+const {
+  title,
+  description,
+  favicon,
+  thumbnail,
+  theme = "device",
+} = frontmatter as Frontmatter;
+
+const baseUrl = import.meta.env.BASE_URL;
+const prefix = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light">
+<html class="bg-white dark:bg-zinc-900" lang="en" data-theme={theme}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={asset(favicon)} />
-    <meta property="og:title" content={`PHIL — ${title}`} />
-    <meta property="og:description" content={description} />
+    {description && <meta name="description" content={description} />}
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/svg+xml" href={prefix + favicon} />
+
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={socialImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="PHIL: Correct Robots Before They Make Mistakes. Proactive human-in-the-loop intervention via preference learning."
-    />
+    <link rel="canonical" href={new URL(prefix, Astro.site).href} />
+    <meta property="og:url" content={new URL(prefix, Astro.site).href} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`PHIL — ${title}`} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={socialImage} />
-    <title>PHIL — {title}</title>
+    {
+      thumbnail && (
+        <meta
+          property="og:image"
+          content={new URL(prefix + thumbnail, Astro.site).href}
+        />
+      )
+    }
+
+    <Font
+      cssVariable="--font-noto-sans"
+      preload={[{ subset: "latin", style: "normal" }]}
+    />
+
+    <title>{title}</title>
   </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <div class="nav-inner">
-        <a class="wordmark" href="#top" aria-label="PHIL home"
-          ><svg
-            width="27"
-            height="27"
-            viewBox="0 0 28 28"
-            fill="none"
-            aria-hidden="true"
-            ><path
-              d="M4 22V6h8a6 6 0 0 1 0 12H4"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"></path><path
-              d="m19 19 5-5-5-5"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"></path></svg
-          >PHIL<span class="wordmark-divider"></span><span
-            class="nav-descriptor">Robot learning, with foresight.</span
-          ></a
-        ><div class="nav-links">
-          <a href="#video">Video</a><a href="#method">Method</a><a
-            href="#results">Results</a
-          >
-        </div>
-      </div>
-    </nav>
-    <main id="main-content"><Content /></main>
-    <footer class="site-footer">
-      <div class="section-shell footer-inner">
-        <a class="wordmark" href="#top"
-          >PHIL <span class="footer-arrow" aria-hidden="true">↗</span></a
-        ><p>
-          Built with <a
-            href="https://github.com/RomanHauksson/academic-project-astro-template"
-            >Roman Hauksson’s academic project template</a
-          >, based on <a href="https://nerfies.github.io/">Nerfies</a>.<br
-          />Template adaptation under <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            >CC BY-SA 4.0</a
-          >.
-        </p><a class="back-top" href="#top">Back to top ↑</a>
-      </div>
+  <body
+    class="prose prose-lg prose-zinc dark:prose-invert prose-a:text-blue-600 prose-a:hover:text-blue-900 prose-a:dark:text-blue-200 prose-a:dark:hover:text-blue-100 prose-a:underline prose-a:decoration-dashed prose-a:underline-offset-4 prose-a:hover:decoration-solid prose-a:font-normal prose-code:bg-zinc-200 prose-code:dark:bg-zinc-800 prose-code:text-zinc-800 prose-code:dark:text-zinc-200 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-medium prose-code:before:content-none prose-code:after:content-none max-w-none pt-16 pb-6 font-(family-name:--font-noto-sans)"
+  >
+    <main>
+      <Content components={{ table: Table }} />
+    </main>
+    <footer class="mx-auto max-w-[50rem] px-6 text-center">
+      <p class="prose-sm text-center">
+        Built with <a
+          href="https://research-template.roman.technology"
+          rel="nofollow">Roman Hauksson-Neill's project page template</a
+        >. Adapted under <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a
+        >.
+      </p>
     </footer>
   </body>
 </html>
