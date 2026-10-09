@@ -33,7 +33,6 @@ import Header from "./components/Header.astro";
 import Video from "./components/Video.astro";
 import Figure from "./components/Figure.astro";
 import Picture from "./components/Picture.astro";
-import Wide from "./components/Wide.astro";
 import HighlightedSection from "./components/HighlightedSection.astro";
 import overview from "./assets/phil/overview.png";
 import diffusion from "./assets/phil/diffusion.png";
@@ -55,14 +54,12 @@ We evaluate PHIL on real-world manipulation with a diffusion policy and a pretra
 
 ## How PHIL works
 
-<Wide>
   <Figure>
     <a slot="figure" href={asset("figures/overview.png")} target="_blank" rel="noopener noreferrer" aria-label="Open full-size PHIL framework figure">
       <Picture src={overview} alt="PHIL framework: initialize a base policy, preview future motion and collect rejected–corrected action pairs, then post-train with imitation and preference objectives." />
     </a>
     <Fragment slot="caption">PHIL combines trajectory previews, proactive human corrections, and preference-based post-training. Select the figure to view it at full size.</Fragment>
   </Figure>
-</Wide>
 
 ### Reactive vs. proactive correction
 
@@ -90,25 +87,19 @@ These selected rollouts compare **HG-DAgger with reactive data**, **HG-DAgger wi
 
 ### Towel Folding
 
-<Wide>
   <Video src={asset("media/clips/towel-folding.mp4")} poster={asset("media/clips/towel-folding.jpg")} autoplay={false} loop={false} preload="none" aria-label="Towel Folding: side-by-side policy rollouts" />
-</Wide>
 
 Fold the towel in a single-stage manipulation task.
 
 ### Cook the Carrot
 
-<Wide>
   <Video src={asset("media/clips/cook-the-carrot.mp4")} poster={asset("media/clips/cook-the-carrot.jpg")} autoplay={false} loop={false} preload="none" aria-label="Cook the Carrot: side-by-side policy rollouts" />
-</Wide>
 
 Place the pot, add the carrot, and close the lid. The clip includes an annotated example of unnecessary lid-handling behavior.
 
 ### Lemon in the Drawer
 
-<Wide>
   <Video src={asset("media/clips/lemon-in-the-drawer.mp4")} poster={asset("media/clips/lemon-in-the-drawer.jpg")} autoplay={false} loop={false} preload="none" aria-label="Lemon in the Drawer: side-by-side policy rollouts" />
-</Wide>
 
 Open the drawer, place the lemon, and close it. The clip includes an annotated example of repeated drawer manipulation.
 
@@ -127,14 +118,12 @@ Mean full-task success rates, averaged over each policy’s evaluated tasks and 
 
 PHIL matches or exceeds the compared adaptation baselines across the evaluated tasks, budgets, and metrics. HG-DAgger and Residual Policy use reactive corrections; PHIL uses proactive corrections.
 
-<Wide>
   <Figure>
     <a slot="figure" href={asset("figures/diffusion.svg")} target="_blank" rel="noopener noreferrer" aria-label="Open full-size Diffusion Policy results">
       <Picture src={diffusion} alt="Six-panel comparison of Base Policy, HG-DAgger, Residual Policy, and PHIL across demonstration budgets." />
     </a>
     <Fragment slot="caption">Left to right: success rate for Banana, Towel, Carrot, and Lemon; then task completion score for Carrot and Lemon. Zero-demonstration origins are visual guides, not measured conditions. Select the figure to view it at full size.</Fragment>
   </Figure>
-</Wide>
 
 For Cook the Carrot with 10 demonstrations, PHIL reaches **52% success**, compared with 24% for HG-DAgger and 4% for the base policy.
 
@@ -173,27 +162,23 @@ All table values are percentages. **SR** is full-task success rate; **TCS** is n
 
 Proactive collection alone does not consistently improve success under behavior cloning. On the same proactive data, preference post-training matches or improves on HG-DAgger across all four tasks in the lowest-data regime.
 
-<Wide>
   <Figure>
     <a slot="figure" href={asset("figures/ablation.svg")} target="_blank" rel="noopener noreferrer" aria-label="Open full-size correction ablation results">
       <Picture src={ablation} alt="Success-rate comparison of reactive, hybrid, and proactive data with HG-DAgger and PHIL on four tasks." />
     </a>
     <Fragment slot="caption">Three base demonstrations for Banana and ten for each other task; five correction episodes per condition. Hybrid combines two proactive and three reactive episodes. Mixing improves HG-DAgger here but reduces PHIL performance, showing that the benefit depends on the objective.</Fragment>
   </Figure>
-</Wide>
 
 ### Unnecessary recovery behavior
 
 For both HG-DAgger and PHIL, proactive-trained Diffusion Policies show fewer unnecessary recovery behaviors in every evaluated task–demonstration setting.
 
-<Wide>
   <Figure>
     <a slot="figure" href={asset("figures/recovery.svg")} target="_blank" rel="noopener noreferrer" aria-label="Open full-size recovery behavior analysis">
       <Picture src={recovery} alt="Unnecessary recovery counts across four manipulation tasks for policies trained with reactive or proactive corrections." />
     </a>
     <Fragment slot="caption">Counts are averaged over ten successful episodes per condition. Necessary recovery after actual errors is excluded. The horizontal axis is the share of correction frames in the combined training data and decreases to the right.</Fragment>
   </Figure>
-</Wide>
 
 ## Takeaways
 

@@ -10,6 +10,7 @@ Edit `src/paper.mdx` for the title, authors, homepage links, affiliation, corres
 
 - Author entries use `name`, optional `url`, and optional `notes` symbols. The `notes` list explains each symbol.
 - `affiliation` is shown once below the authors.
+- Media is centered within the template’s text column: figures are capped at 720 px and videos at 640 px. Both shrink to fit smaller screens without changing their aspect ratios.
 - Figure sources are in `src/assets/phil/`; full-size copies are in `public/figures/`.
 - Six independent video clips and posters are in `public/media/clips/`. See [VIDEOS.md](VIDEOS.md) for their source ranges and replacement instructions.
 - Public asset links use `asset(...)` to include the GitHub Pages subpath.
