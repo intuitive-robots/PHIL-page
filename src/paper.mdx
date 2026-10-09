@@ -85,23 +85,23 @@ The positive chunk may extend beyond the end of takeover; the prediction accepte
 
 These selected rollouts compare **HG-DAgger with reactive data**, **HG-DAgger with proactive data**, and **PHIL with proactive data**. They illustrate behavior; aggregate results are reported below. All clips retain the source video’s on-screen annotations, pauses, and speed labels. There is no audio.
 
-### Towel Folding
-
-  <Video src={asset("media/clips/towel-folding.mp4")} poster={asset("media/clips/towel-folding.jpg")} autoplay={false} loop={false} preload="none" aria-label="Towel Folding: side-by-side policy rollouts" />
-
-Fold the towel in a single-stage manipulation task.
-
-### Cook the Carrot
-
-  <Video src={asset("media/clips/cook-the-carrot.mp4")} poster={asset("media/clips/cook-the-carrot.jpg")} autoplay={false} loop={false} preload="none" aria-label="Cook the Carrot: side-by-side policy rollouts" />
-
-Place the pot, add the carrot, and close the lid. The clip includes an annotated example of unnecessary lid-handling behavior.
-
-### Lemon in the Drawer
-
-  <Video src={asset("media/clips/lemon-in-the-drawer.mp4")} poster={asset("media/clips/lemon-in-the-drawer.jpg")} autoplay={false} loop={false} preload="none" aria-label="Lemon in the Drawer: side-by-side policy rollouts" />
-
-Open the drawer, place the lemon, and close it. The clip includes an annotated example of repeated drawer manipulation.
+<div className="not-prose full-bleed mx-auto grid max-w-[75rem] gap-8 px-6 md:grid-cols-3">
+  <article>
+    <h3 className="mb-4 text-xl font-semibold">Towel Folding</h3>
+    <Video src={asset("media/clips/towel-folding.mp4")} poster={asset("media/clips/towel-folding.jpg")} autoplay={false} loop={false} preload="none" aria-label="Towel Folding: side-by-side policy rollouts" />
+    <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400">Fold the towel in a single-stage manipulation task.</p>
+  </article>
+  <article>
+    <h3 className="mb-4 text-xl font-semibold">Cook the Carrot</h3>
+    <Video src={asset("media/clips/cook-the-carrot.mp4")} poster={asset("media/clips/cook-the-carrot.jpg")} autoplay={false} loop={false} preload="none" aria-label="Cook the Carrot: side-by-side policy rollouts" />
+    <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400">Place the pot, add the carrot, and close the lid. The clip includes an annotated example of unnecessary lid-handling behavior.</p>
+  </article>
+  <article>
+    <h3 className="mb-4 text-xl font-semibold">Lemon in the Drawer</h3>
+    <Video src={asset("media/clips/lemon-in-the-drawer.mp4")} poster={asset("media/clips/lemon-in-the-drawer.jpg")} autoplay={false} loop={false} preload="none" aria-label="Lemon in the Drawer: side-by-side policy rollouts" />
+    <p className="mt-4 text-base text-zinc-600 dark:text-zinc-400">Open the drawer, place the lemon, and close it. The clip includes an annotated example of repeated drawer manipulation.</p>
+  </article>
+</div>
 
 ## Experiments and results
 
